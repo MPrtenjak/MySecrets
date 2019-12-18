@@ -1,0 +1,53 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Firebase write data</title>
+  <meta name="description" content="Connecting to Firebase">
+  <meta name="author" content="https:\\mnet.si">
+
+  <!-- NOTE 1: Firebase javascript library -->
+  <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-app.js"></script>
+
+  <!-- NOTE 1.1: Firebase database javascript library -->
+  <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-database.js"></script>
+</head>
+
+<body>
+  <h1 id="info">Connecting to database...</h1>
+
+  <!-- IMPORTANT: Do not forget to replace this firebaseConfig object from your database -->
+  <!-- NOTE 2: firebaseConfig object from your firebase settings -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCDp8JslSmYj-phphfZpEpm_TM9eeCUk_Q",
+      authDomain: "mysecrets-969e7.firebaseapp.com",
+      databaseURL: "https://mysecrets-969e7.firebaseio.com",
+      projectId: "mysecrets-969e7",
+      storageBucket: "mysecrets-969e7.appspot.com",
+      messagingSenderId: "600532802582",
+      appId: "1:600532802582:web:3d38be2c5f104cb1"
+    };
+
+    // NOTE 3: connect
+    var myProject = firebase.initializeApp(firebaseConfig);
+
+    // NOTE 4: prepare data
+    var data = {
+      name: 'Matjaz',
+      web: 'https://mnet.si',
+      mail: 'info@mnet.si'
+    }
+
+    // NOTE 5: set data key ~ storage location
+    var key = 'my-data/user/matjaz'
+
+    // NOTE 6: Execute write operation
+    firebase.database().ref(key).set(data)
+      .then(() => document.getElementById('info').innerHTML = 'Writing done!')
+      .catch((err) => document.getElementById('info').innerHTML = 'Error: ' + err)
+  </script>
+</body>
+</html>
