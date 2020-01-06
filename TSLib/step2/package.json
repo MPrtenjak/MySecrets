@@ -1,0 +1,32 @@
+{
+  "name": "mysecrets",
+  "version": "0.0.1",
+  "description": "Store sensitive data on web",
+  "main": "./dist/mysecrets.min.js",
+  "types": "./dist/mysecrets.d.ts",
+  "scripts": {
+    "dev": "npm run tslint && tsc",
+    "dev:watch": "nodemon --exec 'npm run dev || exit 1'",
+    "tslint": "tslint --project .",
+    "build": "npm run clean && npm run dev",
+    "test": "jest src",
+    "test:coverage": "jest src --coverage",
+    "test-all": "npm run clean && jest && npm run clean",
+    "test-all:coverage": "npm run clean && jest --coverage && npm run clean",
+    "clean": "rimraf dist"
+  },
+  "author": "matjaz@matjazev.net",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^23.3.7",
+    "@types/node": "^13.1.2",
+    "jest": "^23.6.0",
+    "nodemon": "^1.17.5",
+    "rimraf": "^3.0.0",
+    "ts-jest": "^23.10.4",
+    "tslint": "^5.10.0",
+    "typescript": "^3.7.4",
+    "uglify-js": "^3.4.9"
+  },
+  "dependencies": {}
+}
