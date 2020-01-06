@@ -1,6 +1,6 @@
 import Encrypting from './encrypting';
 
-export default class CryptingItems implements IEncryptingAppData {
+export default class EncryptingAppData implements IEncryptingAppData {
   public encrypt(plainMessage: IAppData, password: string): string {
     const jsonString = JSON.stringify(plainMessage);
 
