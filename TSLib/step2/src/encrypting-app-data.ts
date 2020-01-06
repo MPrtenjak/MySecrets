@@ -1,16 +1,16 @@
-import EncryptingAppData from './encrypting';
+import Encrypting from './encrypting';
 
 export default class CryptingItems implements IEncryptingAppData {
   public encrypt(plainMessage: IAppData, password: string): string {
     const jsonString = JSON.stringify(plainMessage);
 
-    const crypting = new EncryptingAppData();
-    return crypting.encrypt(jsonString, password);
+    const encrypting = new Encrypting();
+    return encrypting.encrypt(jsonString, password);
   }
 
   public decrypt(encryptedMessage: string, password: string): IAppData {
-    const crypting = new EncryptingAppData();
-    const val = crypting.decrypt(encryptedMessage, password);
+    const encrypting = new Encrypting();
+    const val = encrypting.decrypt(encryptedMessage, password);
 
     return JSON.parse(val);
   }
