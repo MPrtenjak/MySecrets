@@ -3,7 +3,7 @@ import CryptoJS from 'crypto-js';
 const keySize: number = 256;
 const iterations: number = 100;
 
-export default class Encrypting implements IEncrypting {
+export default class EncryptingAppData implements IEncrypting {
   public encrypt(plainMessage: string, password: string): string {
     const salt = CryptoJS.lib.WordArray.random(128 / 8);
 
