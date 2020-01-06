@@ -28,5 +28,8 @@
     "typescript": "^3.7.4",
     "uglify-js": "^3.4.9"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@types/crypto-js": "^3.1.43",
+    "crypto-js": "^3.1.9-1"
+  }
 }
