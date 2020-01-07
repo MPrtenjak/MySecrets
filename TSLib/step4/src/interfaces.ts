@@ -22,3 +22,12 @@ interface IEncryptingAppData {
 
   decrypt(encryptedMessage: string, password: string): IAppData;
 }
+
+interface IDatabase {
+  save(data: IAppData): Promise<void>;
+  load(): Promise<IAppData>;
+}
+
+interface ISettings {
+  firebaseConfig: object;
+}
