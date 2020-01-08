@@ -17,4 +17,16 @@ export default class Database implements IDatabase {
   public load(): Promise<IAppData> {
     throw new Error('Method not implemented.');
   }
+
+  public isNewUser(): Promise<boolean> {
+    throw new Error('Method not implemented.');
+  }
+
+  public setPassphrase(passphrase: string): Promise<boolean> {
+    throw new Error('Method not implemented.');
+  }
+
+  public checkPassphrase(passphrase: string): Promise<boolean> {
+    throw new Error('Method not implemented.');
+  }
 }

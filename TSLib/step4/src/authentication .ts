@@ -1,5 +1,4 @@
 import * as Firebase from 'firebase/app';
-import 'firebase/database';
 
 export default class Authentication implements IAuthentication  {
   private settings: ISettings;
@@ -19,10 +18,24 @@ export default class Authentication implements IAuthentication  {
   }
 
   public login(): Promise<boolean> {
-    throw new Error('Method not implemented.');
+    return new Promise((resolve) => {
+      return Firebase.auth().signInWithPopup(this.authProvider)
+        .then((result) => resolve(true))
+        .catch((err) => {
+          console.error(err);
+          resolve(false);
+      });
+    });
   }
 
   public logout(): Promise<boolean> {
-    throw new Error('Method not implemented.');
+    return new Promise((resolve) => {
+      return Firebase.auth().signOut()
+        .then(() => resolve(true))
+        .catch((err) => {
+          console.error(err);
+          return Promise.resolve(false);
+      });
+    });
   }
 }

@@ -25,13 +25,16 @@ interface IEncryptingAppData {
 
 interface IAuthentication  {
   login(): Promise<boolean>;
-
   logout(): Promise<boolean>;
 }
 
 interface IDatabase {
   save(data: IAppData): Promise<void>;
   load(): Promise<IAppData>;
+
+  isNewUser(): Promise<boolean>;
+  setPassphrase(passphrase: string): Promise<boolean>;
+  checkPassphrase(passphrase: string): Promise<boolean>;
 }
 
 interface ISettings {
