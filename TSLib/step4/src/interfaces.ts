@@ -39,6 +39,7 @@ interface IDatabase {
 
 interface ISettings {
   firebaseConfig: object;
+  firebaseRoot: string;
   languageCode: string;
   onAuthChange(user: string | null): void;
 }

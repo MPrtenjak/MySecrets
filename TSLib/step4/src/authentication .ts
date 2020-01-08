@@ -1,4 +1,5 @@
 import * as Firebase from 'firebase/app';
+import 'firebase/auth';
 
 export default class Authentication implements IAuthentication  {
   private settings: ISettings;
