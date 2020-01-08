@@ -1,0 +1,66 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Authentication with firebase</title>
+  <meta name="description" content="Authentication with firebase">
+  <meta name="author" content="https:\\mnet.si">
+
+  <!-- NOTE 1: Firebase javascript library -->
+  <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-app.js"></script>
+
+  <!-- NOTE 1.1: Firebase authentication javascript library -->
+  <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+</head>
+
+<body>
+  <h1>Authentication with firebase</h1>
+
+  <h2 id="info"></h2>
+
+  <button id="btn_login">Login</button>
+  <button id="btn_logout">Logout</button>
+
+  <script>
+    // IMPORTANT: Do not forget to replace this firebaseConfig object from your database
+    // NOTE 2: firebaseConfig object from your firebase settings
+    const firebaseConfig = {
+      apiKey: "AIzaSyCDp8JslSmYj-phphfZpEpm_TM9eeCUk_Q",
+      authDomain: "mysecrets-969e7.firebaseapp.com",
+      databaseURL: "https://mysecrets-969e7.firebaseio.com",
+      projectId: "mysecrets-969e7",
+      storageBucket: "mysecrets-969e7.appspot.com",
+      messagingSenderId: "600532802582",
+      appId: "1:600532802582:web:3d38be2c5f104cb1"
+    };
+
+    // NOTE 3: execute connection
+    var myProject = firebase.initializeApp(firebaseConfig);
+
+    // NOTE 4: provider will be google ==> gmail
+    var authProvider = new firebase.auth.GoogleAuthProvider();
+
+    document.getElementById('btn_login').onclick = () => {
+      firebase.auth().signInWithPopup(authProvider)
+        .then((result) => {
+          document.getElementById('info').innerHTML = firebase.auth().currentUser.displayName + ' logged in!';
+        })
+        .catch((err) => {
+          document.getElementById('info').innerHTML = 'ERROR: ' + JSON.stringify(err)
+        });
+    }
+
+    document.getElementById('btn_logout').onclick = () => {
+      return firebase.auth().signOut()
+      .then(() => {
+          document.getElementById('info').innerHTML = 'User logged out'
+        })
+        .catch((err) => {
+          document.getElementById('info').innerHTML = 'ERROR: ' + JSON.stringify(err)
+        });
+    }
+</script>
+</body>
+</html>
