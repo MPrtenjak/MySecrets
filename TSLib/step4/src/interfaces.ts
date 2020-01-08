@@ -23,6 +23,12 @@ interface IEncryptingAppData {
   decrypt(encryptedMessage: string, password: string): IAppData;
 }
 
+interface IAuthentication  {
+  login(): Promise<boolean>;
+
+  logout(): Promise<boolean>;
+}
+
 interface IDatabase {
   save(data: IAppData): Promise<void>;
   load(): Promise<IAppData>;
@@ -30,4 +36,6 @@ interface IDatabase {
 
 interface ISettings {
   firebaseConfig: object;
+  languageCode: string;
+  onAuthChange(user: string | null): void;
 }
