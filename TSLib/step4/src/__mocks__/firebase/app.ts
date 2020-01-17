@@ -1,12 +1,11 @@
-class GoogleAuthProvider
-{
+class GoogleAuthProvider {
 }
 
-var testResult = true;
+let testResult = true;
 
 function auth() {
   return {
-    onAuthStateChanged: () => {},
+    onAuthStateChanged: () => { return; },
 
     signInWithPopup: () => {
       return Promise.resolve(testResult);
@@ -15,15 +14,14 @@ function auth() {
     signOut: () => {
       return Promise.resolve(testResult);
     },
-  }
+  };
 }
 
-auth.GoogleAuthProvider = () => {};
+auth.GoogleAuthProvider = () => { return; };
 
 const Firebase = {
   __testResult: testResult,
-
-  auth
-}
+  auth,
+};
 
 module.exports = Firebase;
