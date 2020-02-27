@@ -13,6 +13,7 @@ function getSettings(): ISettings {
 function getAuthAndCheckConsole(): IAuthentication {
   jest.clearAllMocks()
   jest.spyOn(global.console, 'error');
+  jest.spyOn(Firebase.auth(), 'onAuthStateChanged');
 
   const settings = getSettings();
   return new Authentication(settings);
@@ -31,6 +32,7 @@ describe('testing authentication', () => {
     const data = await authentication.login()
     expect(data).toBeTruthy()
     expect(console.error).not.toHaveBeenCalled();
+    expect(Firebase.auth().onAuthStateChanged).toHaveBeenCalled();
   });
 
   test('incorrect login should return false', async () => {
@@ -40,6 +42,7 @@ describe('testing authentication', () => {
     const data = await authentication.login();
     expect(data).toBeFalsy();
     expect(console.error).toHaveBeenCalled();
+    expect(Firebase.auth().onAuthStateChanged).toHaveBeenCalled();
   });
 
   test('correct logout should return true', async () => {
@@ -49,6 +52,7 @@ describe('testing authentication', () => {
     const data = await authentication.logout();
     expect(data).toBeTruthy();
     expect(console.error).not.toHaveBeenCalled();
+    expect(Firebase.auth().onAuthStateChanged).toHaveBeenCalled();
   });
 
   test('incorrect logout should return false', async () => {
@@ -58,5 +62,6 @@ describe('testing authentication', () => {
     const data = await authentication.logout();
     expect(data).toBeFalsy();
     expect(console.error).toHaveBeenCalled();
+    expect(Firebase.auth().onAuthStateChanged).toHaveBeenCalled();
   });
 });
