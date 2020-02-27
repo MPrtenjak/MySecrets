@@ -2,18 +2,20 @@ const mock = {
   signInSuccess: true,
   signOutSuccess: true,
 
-  onAuthStateChanged: () => { },
-
-  signInWithPopup: function () {
-    return (this.signInSuccess)
+  getPromise(success: boolean): Promise<any> {
+    return (success)
       ? Promise.resolve(null)
       : Promise.reject('error')
   },
 
+  onAuthStateChanged: () => { },
+
+  signInWithPopup: function () {
+    return this.getPromise(this.signInSuccess)
+  },
+
   signOut: function () {
-    return (this.signOutSuccess)
-      ? Promise.resolve(null)
-      : Promise.reject('error')
+    return this.getPromise(this.signOutSuccess)
   },
 }
 
