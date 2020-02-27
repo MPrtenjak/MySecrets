@@ -10,49 +10,41 @@ function getSettings(): ISettings {
   };
 }
 
+function getAuth(): IAuthentication {
+  const settings = getSettings();
+  return new Authentication(settings);
+}
+
 describe('testing authentication', () => {
   test('correct login should return true', async () => {
-    const settings = getSettings();
-    const authentication = new Authentication(settings);
+    (Firebase.auth() as any)['signInSuccess'] = true
 
-    console.error('auth', Firebase.auth)
-/*
-    const UserCredential = jest.mock(Firebase.auth.UserCredential);
-    Firebase.auth().signInWithPopup = () => {
-      return Promise.resolve(UserCredential);
-    };
-*/
-/*
-    authentication.login = () => {
-      return Promise.resolve(true);
-    };
-*/
-
-    const data = await authentication.login();
-    expect(data).toBeTruthy();
+    const authentication = getAuth()
+    const data = await authentication.login()
+    expect(data).toBeTruthy()
   });
 
   test('incorrect login should return false', async () => {
-    const settings = getSettings();
-    const authentication = new Authentication(settings);
+    (Firebase.auth() as any)['signInSuccess'] = false
 
-    authentication.login = () => {
-      return Promise.resolve(false);
-    };
-
+    const authentication = getAuth()
     const data = await authentication.login();
     expect(data).toBeFalsy();
   });
 
   test('correct logout should return true', async () => {
-    const settings = getSettings();
-    const authentication = new Authentication(settings);
+    (Firebase.auth() as any)['signOutSuccess'] = true
 
-    authentication.logout = () => {
-      return Promise.resolve(true);
-    };
-
+    const authentication = getAuth()
     const data = await authentication.logout();
     expect(data).toBeTruthy();
+  });
+
+  test('incorrect logout should return false', async () => {
+    (Firebase.auth() as any)['signOutSuccess'] = false
+
+    const authentication = getAuth()
+    const data = await authentication.logout();
+    expect(data).toBeFalsy();
   });
 });

@@ -35,7 +35,7 @@ export default class Authentication implements IAuthentication  {
         .then(() => resolve(true))
         .catch((err) => {
           console.error(err);
-          return Promise.resolve(false);
+          resolve(false);
       });
     });
   }

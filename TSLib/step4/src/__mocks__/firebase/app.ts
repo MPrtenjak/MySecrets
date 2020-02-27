@@ -1,27 +1,28 @@
-class GoogleAuthProvider {
+const mock = {
+  signInSuccess: true,
+  signOutSuccess: true,
+
+  onAuthStateChanged: () => { },
+
+  signInWithPopup: function () {
+    return (this.signInSuccess)
+      ? Promise.resolve(null)
+      : Promise.reject('error')
+  },
+
+  signOut: function () {
+    return (this.signOutSuccess)
+      ? Promise.resolve(null)
+      : Promise.reject('error')
+  },
 }
 
-let testResult = true;
-
 function auth() {
-  return {
-    onAuthStateChanged: () => { return; },
-
-    signInWithPopup: () => {
-      return Promise.resolve(testResult);
-    },
-
-    signOut: () => {
-      return Promise.resolve(testResult);
-    },
-  };
+  return mock
 }
 
 auth.GoogleAuthProvider = () => { return; };
 
-const Firebase = {
-  __testResult: testResult,
+module.exports = {
   auth,
 };
-
-module.exports = Firebase;
