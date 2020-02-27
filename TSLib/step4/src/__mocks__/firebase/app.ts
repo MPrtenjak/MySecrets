@@ -5,22 +5,24 @@ const mock = {
   getPromise(success: boolean): Promise<any> {
     return (success)
       ? Promise.resolve(null)
-      : Promise.reject('error')
+      : Promise.reject('error');
   },
 
-  onAuthStateChanged: () => { },
-
-  signInWithPopup: function () {
-    return this.getPromise(this.signInSuccess)
+  onAuthStateChanged: () => {
+    return;
   },
 
-  signOut: function () {
-    return this.getPromise(this.signOutSuccess)
+  signInWithPopup() {
+    return this.getPromise(this.signInSuccess);
   },
-}
+
+  signOut() {
+    return this.getPromise(this.signOutSuccess);
+  },
+};
 
 function auth() {
-  return mock
+  return mock;
 }
 
 auth.GoogleAuthProvider = () => { return; };

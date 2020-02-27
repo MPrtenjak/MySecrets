@@ -43,7 +43,7 @@ export default class Database implements IDatabase {
       return Promise.reject(err);
     }
 
-    return this._readFromDB(true, this.passphrase)
+    return this._readFromDB({ decode: true, passphrase: this.passphrase })
       .then(({ data }) => Promise.resolve(data))
       .catch((err) => {
         console.error(err);
@@ -52,8 +52,8 @@ export default class Database implements IDatabase {
   }
 
   public isNewUser(): Promise<boolean> {
-    return this._readFromDB(false)
-      .then((empty) => Promise.resolve(empty))
+    return this._readFromDB({ decode: false })
+      .then(({ empty }) => Promise.resolve(empty))
       .catch((err) => {
         console.error(err);
         return Promise.resolve(false);
@@ -62,11 +62,11 @@ export default class Database implements IDatabase {
 
   public setPassphrase(passphrase: string): Promise<boolean> {
     this.passphrase = passphrase;
-    return Promise.reject(true);
+    return Promise.resolve(true);
   }
 
   public checkPassphrase(passphrase: string): Promise<boolean> {
-    return this._readFromDB(true, passphrase)
+    return this._readFromDB({ decode: true, passphrase })
       .then(() => Promise.resolve(true))
       .catch((err) => {
         console.error(err);
@@ -90,7 +90,7 @@ export default class Database implements IDatabase {
     }
   }
 
-  private _readFromDB(decode: boolean, passphrase?: string): Promise<any> {
+  private _readFromDB(args: { decode: boolean, passphrase?: string }): Promise<any> {
     return new Promise((resolve, reject) => {
       return Firebase.database().ref(this.__dbRoute).once('value')
         .then((snapshot) => {
@@ -101,9 +101,9 @@ export default class Database implements IDatabase {
             data: new AppData(),
           };
 
-          if (decode) {
+          if (args.decode) {
             try {
-              result.data = this.encrypting.decrypt(snapshotValue.data, String(passphrase));
+              result.data = this.encrypting.decrypt(snapshotValue.data, String(args.passphrase));
             } catch (err) {
               reject(err);
             }

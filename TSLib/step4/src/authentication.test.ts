@@ -11,7 +11,7 @@ function getSettings(): ISettings {
 }
 
 function getAuthAndCheckConsole(): IAuthentication {
-  jest.clearAllMocks()
+  jest.clearAllMocks();
   jest.spyOn(global.console, 'error');
   jest.spyOn(Firebase.auth(), 'onAuthStateChanged');
 
@@ -20,25 +20,24 @@ function getAuthAndCheckConsole(): IAuthentication {
 }
 
 function setMockObject(property: string, value: boolean): void {
-  (Firebase.auth() as any)[property] = value
+  (Firebase.auth() as any)[property] = value;
 }
-
 
 describe('testing authentication', () => {
   test('correct login should return true', async () => {
-    setMockObject('signInSuccess', true)
+    setMockObject('signInSuccess', true);
 
-    const authentication = getAuthAndCheckConsole()
-    const data = await authentication.login()
-    expect(data).toBeTruthy()
+    const authentication = getAuthAndCheckConsole();
+    const data = await authentication.login();
+    expect(data).toBeTruthy();
     expect(console.error).not.toHaveBeenCalled();
     expect(Firebase.auth().onAuthStateChanged).toHaveBeenCalled();
   });
 
   test('incorrect login should return false', async () => {
-    (Firebase.auth() as any)['signInSuccess'] = false
+    setMockObject('signInSuccess', false);
 
-    const authentication = getAuthAndCheckConsole()
+    const authentication = getAuthAndCheckConsole();
     const data = await authentication.login();
     expect(data).toBeFalsy();
     expect(console.error).toHaveBeenCalled();
@@ -46,9 +45,9 @@ describe('testing authentication', () => {
   });
 
   test('correct logout should return true', async () => {
-    (Firebase.auth() as any)['signOutSuccess'] = true
+    setMockObject('signOutSuccess', true);
 
-    const authentication = getAuthAndCheckConsole()
+    const authentication = getAuthAndCheckConsole();
     const data = await authentication.logout();
     expect(data).toBeTruthy();
     expect(console.error).not.toHaveBeenCalled();
@@ -56,9 +55,9 @@ describe('testing authentication', () => {
   });
 
   test('incorrect logout should return false', async () => {
-    (Firebase.auth() as any)['signOutSuccess'] = false
+    setMockObject('signOutSuccess', false);
 
-    const authentication = getAuthAndCheckConsole()
+    const authentication = getAuthAndCheckConsole();
     const data = await authentication.logout();
     expect(data).toBeFalsy();
     expect(console.error).toHaveBeenCalled();
