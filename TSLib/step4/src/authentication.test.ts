@@ -1,4 +1,4 @@
-import * as Firebase from 'firebase/app';
+import Firebase from 'firebase/app';
 import Authentication from './authentication';
 
 function getSettings(): ISettings {
